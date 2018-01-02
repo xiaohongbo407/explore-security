@@ -9,7 +9,14 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>explore-security-borowser</artifactId>
+    <artifactId>explore-security-browser</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.explore.security</groupId>
+            <artifactId>explore-security-core</artifactId>
+            <version>${explore.security.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>
