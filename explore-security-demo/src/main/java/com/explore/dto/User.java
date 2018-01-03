@@ -2,7 +2,10 @@ package com.explore.dto;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import java.util.Date;
 
 /**
@@ -16,8 +19,9 @@ public class User {
 
     private String id;
     private String username;
-    private String password;
     @NotBlank
+    private String password;
+    @Null
     private Date birthday;
 
     @JsonView(UserSimpleView.class)
