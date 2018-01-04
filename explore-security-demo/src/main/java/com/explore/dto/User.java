@@ -1,11 +1,13 @@
 package com.explore.dto;
 
+import com.explore.vaildator.MyConstraint;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
+import javax.validation.constraints.Past;
 import java.util.Date;
 
 /**
@@ -18,10 +20,12 @@ public class User {
     public interface UserDetailView extends UserSimpleView {}
 
     private String id;
+
+    @MyConstraint(message = "这是一个测试")
     private String username;
-    @NotBlank
+    @NotBlank(message = "密码不能为空")
     private String password;
-    @Null
+    @Past(message = "生日必须是过去的时间")
     private Date birthday;
 
     @JsonView(UserSimpleView.class)

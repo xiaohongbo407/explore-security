@@ -11,12 +11,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * Created by xiaohb on 2018/1/2.
@@ -74,6 +74,19 @@ public class UserControllerTest {
         System.out.println(date.getTime());
         String content = "{\"username\":\"tom\",\"password\":null,\"birthday\":\"" + date.getTime() + "\"}";
         String result = mockMvc.perform(post("/user").contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(content))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value("1"))
+                .andReturn().getResponse().getContentAsString();
+        System.out.println(result);
+    }
+
+    @Test
+    public void whenUpdateSuccess() throws Exception {
+        Date date = new Date(LocalDateTime.now().plusYears(1L).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+        System.out.println(date.getTime());
+        String content = "{\"username\":\"tom\",\"password\":null,\"birthday\":\"" + date.getTime() + "\"}";
+        String result = mockMvc.perform(put("/user/111").contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(content))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value("1"))

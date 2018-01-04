@@ -8,6 +8,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -54,6 +55,23 @@ public class UserController {
             result.getAllErrors().stream().forEach(error -> System.out.println(error));
         }
 
+        System.out.println(user.getBirthday());
+        System.out.println(ReflectionToStringBuilder.toString(user, ToStringStyle.JSON_STYLE));
+
+        user.setId("1");
+        return user;
+    }
+
+    @PutMapping("/{id:\\d+}")
+    public User update(@PathVariable String id,@Valid @RequestBody User user, BindingResult result){
+        if(result.hasErrors()){
+            result.getAllErrors().stream().forEach(error -> {
+                FieldError fieldError = (FieldError) error;
+                System.out.println(fieldError.getField()+" "+fieldError.getDefaultMessage());
+            });
+        }
+        System.out.println(id);
+        System.out.println(user.getId());
         System.out.println(user.getBirthday());
         System.out.println(ReflectionToStringBuilder.toString(user, ToStringStyle.JSON_STYLE));
 
