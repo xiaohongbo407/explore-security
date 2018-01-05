@@ -2,8 +2,10 @@ package com.explore.web.controller;
 
 import com.explore.dto.User;
 import com.explore.dto.UserQueryCondition;
+import com.explore.exception.UserNotExistException;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringExclude;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -44,17 +46,15 @@ public class UserController {
     @GetMapping("/{id:\\d+}")
     @JsonView(User.UserDetailView.class)
     public User getInfo(@PathVariable String id) {
+//        throw new RuntimeException(id);
+        System.out.println("进入getUserInfo方法");
         User user = new User();
         user.setUsername("joy");
         return user;
     }
 
     @PostMapping
-    public User create(@Valid @RequestBody User user, BindingResult result){
-        if(result.hasErrors()){
-            result.getAllErrors().stream().forEach(error -> System.out.println(error));
-        }
-
+    public User create(@Valid @RequestBody User user){
         System.out.println(user.getBirthday());
         System.out.println(ReflectionToStringBuilder.toString(user, ToStringStyle.JSON_STYLE));
 
@@ -78,5 +78,12 @@ public class UserController {
         user.setId("1");
         return user;
     }
+
+    @DeleteMapping("/{id:\\d+}")
+    public void delete(@PathVariable String id){
+        System.out.println(id);
+    }
+
+
 
 }
