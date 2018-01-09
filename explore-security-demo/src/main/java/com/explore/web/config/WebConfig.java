@@ -17,7 +17,6 @@ import java.util.List;
  * Created by xiaohb on 2018/1/5.
  */
 //@Configuration
-//@SuppressWarnings("SpringJavaAutowiringInspection")
 public class WebConfig extends WebMvcConfigurerAdapter{
 
     @Autowired
