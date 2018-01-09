@@ -32,7 +32,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().authorizeRequests()
                 .antMatchers("/authentication/require",securityProperties.getBrowser().getLoginPage()).permitAll()
                 .anyRequest().authenticated()
-//                .and().csrf().disable()
+                .and().csrf().disable()
         ;
     }
 }
