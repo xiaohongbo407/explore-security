@@ -11,11 +11,21 @@ public class SecurityProperties {
 
     BrowserProperties browser= new BrowserProperties();
 
+    private VaildateCodeProperties code = new VaildateCodeProperties();
+
     public BrowserProperties getBrowser() {
         return browser;
     }
 
     public void setBrowser(BrowserProperties browser) {
         this.browser = browser;
+    }
+
+    public VaildateCodeProperties getCode() {
+        return code;
+    }
+
+    public void setCode(VaildateCodeProperties code) {
+        this.code = code;
     }
 }
