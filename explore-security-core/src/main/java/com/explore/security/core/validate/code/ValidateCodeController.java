@@ -25,25 +25,14 @@ public class ValidateCodeController {
     private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
     @Autowired
     private SecurityProperties securityProperties;
+    @Autowired
+    private ValidateCodeGenerator imageCodeGenerator;
 
     @GetMapping("/code/image")
     public void createCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        ImageCode imageCode = createImageCode(request);
+        ImageCode imageCode = imageCodeGenerator.generate(request);
         sessionStrategy.setAttribute(new ServletWebRequest(request),SESSION_KEY,imageCode);
         ImageIO.write(imageCode.getImage(),"JPEG",response.getOutputStream());
-    }
-
-    private ImageCode createImageCode(HttpServletRequest request) {
-        int length = ServletRequestUtils.getIntParameter(request,"length",securityProperties.getCode().getImage().getLength());
-        int width = ServletRequestUtils.getIntParameter(request,"width",securityProperties.getCode().getImage().getWidth());
-        int height = ServletRequestUtils.getIntParameter(request,"height",securityProperties.getCode().getImage().getHeight());
-        int expireIn = ServletRequestUtils.getIntParameter(request,"expireIn",securityProperties.getCode().getImage().getExpireIn());
-
-
-        String verifyCode = VerifyCodeUtil.generateTextCode(length);
-        BufferedImage bufferedImage = VerifyCodeUtil.generateImageCode(width,height,verifyCode);
-
-        return new ImageCode(bufferedImage,verifyCode,expireIn);
     }
 
 }

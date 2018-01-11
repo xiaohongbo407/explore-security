@@ -102,7 +102,7 @@ public class VerifyCodeUtil {
      * @return 图片缓存对象
      */
     public static BufferedImage generateImageCode(int width, int height,String textCode) {
-        return generateImageCode(textCode, width, height, 7, true, null, null, null);
+        return generateImageCode(textCode, width, height, 2, true, Color.white, Color.black, null);
     }
 
     /**
@@ -131,7 +131,7 @@ public class VerifyCodeUtil {
      * @return 验证码字符串
      */
     public static String generateTextCode(int length) {
-        return generateTextCode(TYPE_NUM_ONLY, 4, null);
+        return generateTextCode(TYPE_NUM_ONLY, length, null);
     }
 
     /**
