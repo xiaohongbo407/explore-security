@@ -3,14 +3,15 @@ package com.explore.security.core.properties;
 /**
  * Created by xiaohb on 2018/1/10.
  */
-public class ImageCodeProperties {
+public class ImageCodeProperties extends SmsCodeProperties {
+
+    public ImageCodeProperties() {
+        this.setLength(4);
+        this.setExpireIn(60);
+    }
 
     private int width = 67;
     private int height= 23;
-    private int length = 4;
-    private int expireIn = 60;
-
-    private String url;
 
     public int getWidth() {
         return width;
@@ -28,27 +29,4 @@ public class ImageCodeProperties {
         this.height = height;
     }
 
-    public int getLength() {
-        return length;
-    }
-
-    public void setLength(int length) {
-        this.length = length;
-    }
-
-    public int getExpireIn() {
-        return expireIn;
-    }
-
-    public void setExpireIn(int expireIn) {
-        this.expireIn = expireIn;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
 }

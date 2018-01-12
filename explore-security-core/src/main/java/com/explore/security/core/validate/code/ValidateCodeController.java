@@ -1,9 +1,11 @@
 package com.explore.security.core.validate.code;
 
 import com.explore.security.core.properties.SecurityProperties;
+import com.explore.security.core.validate.code.sms.SmsCodeSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
+import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,12 +29,25 @@ public class ValidateCodeController {
     private SecurityProperties securityProperties;
     @Autowired
     private ValidateCodeGenerator imageCodeGenerator;
+    @Autowired
+    private ValidateCodeGenerator smsCodeGenerator;
+    @Autowired
+    private SmsCodeSender smsCodeSender;
 
     @GetMapping("/code/image")
     public void createCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        ImageCode imageCode = imageCodeGenerator.generate(request);
+        ImageCode imageCode = (ImageCode)imageCodeGenerator.generate(request);
         sessionStrategy.setAttribute(new ServletWebRequest(request),SESSION_KEY,imageCode);
         ImageIO.write(imageCode.getImage(),"JPEG",response.getOutputStream());
+    }
+
+    @GetMapping("/code/sms")
+    public void createSmsCode(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletRequestBindingException {
+        VaildateCode imageCode = smsCodeGenerator.generate(request);
+        sessionStrategy.setAttribute(new ServletWebRequest(request),SESSION_KEY,imageCode);
+        String mobile = ServletRequestUtils.getRequiredStringParameter(request,"mobile");
+        smsCodeSender.send(mobile,"");
+
     }
 
 }
