@@ -1,6 +1,5 @@
 package com.explore.security.core.properties;
 
-import com.explore.security.core.properties.BrowserProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -11,7 +10,7 @@ public class SecurityProperties {
 
     BrowserProperties browser= new BrowserProperties();
 
-    private VaildateCodeProperties code = new VaildateCodeProperties();
+    private ValidateCodeProperties code = new ValidateCodeProperties();
 
     public BrowserProperties getBrowser() {
         return browser;
@@ -21,11 +20,11 @@ public class SecurityProperties {
         this.browser = browser;
     }
 
-    public VaildateCodeProperties getCode() {
+    public ValidateCodeProperties getCode() {
         return code;
     }
 
-    public void setCode(VaildateCodeProperties code) {
+    public void setCode(ValidateCodeProperties code) {
         this.code = code;
     }
 }

@@ -1,7 +1,7 @@
 package com.explore.security.core.validate.code.sms;
 
 import com.explore.security.core.properties.SecurityProperties;
-import com.explore.security.core.validate.code.VaildateCode;
+import com.explore.security.core.validate.code.ValidateCode;
 import com.explore.security.core.validate.code.ValidateCodeGenerator;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +20,13 @@ public class SmsCodeGenerator implements ValidateCodeGenerator {
     private SecurityProperties securityProperties;
 
     @Override
-    public VaildateCode generate(HttpServletRequest request) {
+    public ValidateCode generate(HttpServletRequest request) {
         int expireIn = ServletRequestUtils.getIntParameter(request,
                 "expireIn",securityProperties.getCode().getSms().getExpireIn());
         int length = ServletRequestUtils.getIntParameter(request,
-                "length",securityProperties.getCode().getImage().getLength());
+                "length",securityProperties.getCode().getSms().getLength());
         String code = RandomStringUtils.randomNumeric(length);
-        return new VaildateCode(code,expireIn);
+        return new ValidateCode(code,expireIn);
     }
 
     public SecurityProperties getSecurityProperties() {

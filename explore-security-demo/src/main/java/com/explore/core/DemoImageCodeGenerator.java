@@ -1,8 +1,7 @@
 package com.explore.core;
 
-import com.explore.security.core.validate.code.ImageCode;
+import com.explore.security.core.validate.code.image.ImageCode;
 import com.explore.security.core.validate.code.ValidateCodeGenerator;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 

@@ -6,19 +6,19 @@ import java.time.LocalDateTime;
 /**
  * Created by xiaohb on 2018/1/10.
  */
-public class VaildateCode {
+public class ValidateCode {
 
 
     private String code;
 
     private LocalDateTime expireTime;
 
-    public VaildateCode(String code, int expireIn) {
+    public ValidateCode(String code, int expireIn) {
         this.code = code;
         this.expireTime = LocalDateTime.now().plusSeconds(expireIn);
     }
 
-    public VaildateCode(String code, LocalDateTime expireTime) {
+    public ValidateCode(String code, LocalDateTime expireTime) {
         this.code = code;
         this.expireTime = expireTime;
     }

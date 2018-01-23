@@ -1,4 +1,6 @@
-package com.explore.security.core.validate.code;
+package com.explore.security.core.validate.code.image;
+
+import com.explore.security.core.validate.code.ValidateCode;
 
 import java.awt.image.BufferedImage;
 import java.time.LocalDateTime;
@@ -6,7 +8,7 @@ import java.time.LocalDateTime;
 /**
  * Created by xiaohb on 2018/1/10.
  */
-public class ImageCode extends VaildateCode {
+public class ImageCode extends ValidateCode {
 
     private BufferedImage image;
 

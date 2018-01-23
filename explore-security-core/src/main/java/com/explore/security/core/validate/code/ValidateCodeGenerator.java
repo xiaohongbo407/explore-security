@@ -6,5 +6,5 @@ import javax.servlet.http.HttpServletRequest;
  * Created by xiaohb on 2018/1/11.
  */
 public interface ValidateCodeGenerator {
-    VaildateCode generate(HttpServletRequest request);
+    ValidateCode generate(HttpServletRequest request);
 }
