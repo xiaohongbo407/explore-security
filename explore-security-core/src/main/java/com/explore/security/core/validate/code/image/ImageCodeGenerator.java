@@ -2,10 +2,9 @@ package com.explore.security.core.validate.code.image;
 
 import com.explore.security.core.properties.SecurityProperties;
 import com.explore.security.core.validate.code.ValidateCodeGenerator;
-import com.explore.security.core.validate.code.VerifyCodeUtil;
-import com.explore.security.core.validate.code.image.ImageCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.ServletRequestUtils;
+import org.springframework.web.context.request.ServletWebRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import java.awt.image.BufferedImage;
@@ -19,14 +18,14 @@ public class ImageCodeGenerator implements ValidateCodeGenerator {
     private SecurityProperties securityProperties;
 
     @Override
-    public ImageCode generate(HttpServletRequest request) {
-        int length = ServletRequestUtils.getIntParameter(request,
+    public ImageCode generate(ServletWebRequest request) {
+        int length = ServletRequestUtils.getIntParameter(request.getRequest(),
                 "length",securityProperties.getCode().getImage().getLength());
-        int width = ServletRequestUtils.getIntParameter(request,
+        int width = ServletRequestUtils.getIntParameter(request.getRequest(),
                 "width",securityProperties.getCode().getImage().getWidth());
-        int height = ServletRequestUtils.getIntParameter(request,
+        int height = ServletRequestUtils.getIntParameter(request.getRequest(),
                 "height",securityProperties.getCode().getImage().getHeight());
-        int expireIn = ServletRequestUtils.getIntParameter(request,
+        int expireIn = ServletRequestUtils.getIntParameter(request.getRequest(),
                 "expireIn",securityProperties.getCode().getImage().getExpireIn());
 
         String verifyCode = VerifyCodeUtil.generateTextCode(length);
